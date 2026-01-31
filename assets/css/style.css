@@ -37,9 +37,127 @@ html {
 body {
     font-family: var(--font-main);
     background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 50% 0%, #0a2e1e 0%, #050505 60%);
+    background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+}
+
+/* ... existing styles ... */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 24px;
+    }
+
+    .hero {
+        padding: 140px 0 60px 0;
+    }
+
+    .hero h1 {
+        font-size: 2.75rem;
+    }
+
+    .hero p {
+        font-size: 1.125rem;
+    }
+
+    .logo img {
+        height: 32px;
+        /* Adjusted based on user feedback "logo pequena" -> actually user said small, let's make it reasonable but standard mobile is usually 32-40px. Wait, user said "logo pequena" meaning it IS small and needs to be bigger? "logo pequena... precisa ser ajustado". I will increase it. */
+        height: 60px;
+        /* Increased size */
+    }
+
+    .features,
+    .unlimited,
+    footer,
+    section#faq {
+        padding: 60px 0 !important;
+    }
+
+    .feature-card {
+        padding: 24px;
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .unlimited-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .detail-list li {
+        font-size: 1rem;
+    }
+
+    /* Mobile Nav */
+    .mobile-toggle {
+        display: block;
+        font-size: 28px;
+    }
+
+    /* Integration Icons Mobile */
+    #integracoes i,
+    #integracoes span {
+        font-size: 32px !important;
+    }
+
+    #integracoes>div {
+        gap: 24px !important;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        height: 100vh;
+        background: rgba(5, 5, 5, 0.98);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        border-left: 1px solid var(--border-color);
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .nav-menu a {
+        font-size: 1.35rem;
+    }
+
+    .btn-mobile-highlight {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero::before {
+        width: 120vw;
+        height: 120vw;
+        top: -10%;
+        background: radial-gradient(circle, rgba(0, 208, 132, 0.4) 0%, rgba(5, 5, 5, 0) 70%);
+        opacity: 1;
+        filter: blur(40px);
+    }
 }
 
 a {
