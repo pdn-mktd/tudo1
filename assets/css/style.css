@@ -474,9 +474,90 @@ nav a:hover::after {
 footer {
     padding: 80px 0 40px 0;
     border-top: 1px solid var(--border-color);
-    text-align: center;
     color: var(--text-secondary);
     background: #000;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 48px;
+    text-align: left;
+}
+
+.footer-brand p {
+    margin-top: 16px;
+    font-size: 0.95rem;
+}
+
+.footer-links h4 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-social {
+    display: flex;
+    gap: 16px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    background: var(--surface-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    background: var(--primary-color);
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
 }
 
 /* Animations */
@@ -657,4 +738,838 @@ footer {
 
 .faq-item.active {
     background: var(--surface-hover);
+}
+
+/* ========================================
+   CALCULATOR SECTION
+   ======================================== */
+.calculator-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, var(--surface-color) 0%, var(--bg-color) 100%);
+}
+
+.calculator-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    background: rgba(0, 208, 132, 0.1);
+    border-color: rgba(0, 208, 132, 0.3);
+    color: var(--primary-color);
+}
+
+.calculator-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.calculator-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-text);
+}
+
+/* Step Indicator */
+.calc-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.calc-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 16px;
+}
+
+.step-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--surface-hover);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.step-dot.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 208, 132, 0.4);
+}
+
+.step-dot.completed {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #000;
+}
+
+.step-line {
+    width: 60px;
+    height: 2px;
+    background: var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.step-line.completed {
+    background: var(--primary-color);
+}
+
+.calc-step-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Calc Steps */
+.calc-step {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.calc-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Calc Inputs */
+.calc-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.calc-input-group {
+    text-align: left;
+}
+
+.calc-input-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.calc-input-group label i {
+    color: var(--primary-color);
+}
+
+.calc-input-group input,
+.calc-input-group select {
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.calc-input-group input:focus,
+.calc-input-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.1);
+}
+
+.calc-input-group input::placeholder {
+    color: var(--text-secondary);
+}
+
+.input-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+}
+
+.btn-calc {
+    width: 100%;
+    padding: 18px 32px;
+    font-size: 1.125rem;
+    gap: 8px;
+}
+
+/* Lead Capture - Step 2 */
+.lead-capture-content {
+    display: grid;
+    gap: 32px;
+}
+
+.lead-preview h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.lead-preview p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.preview-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.preview-item {
+    background: var(--bg-color);
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.preview-item.blur {
+    filter: blur(4px);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.preview-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.preview-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Lead Form */
+.lead-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 16px 20px 16px 48px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.1);
+}
+
+.form-group i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.form-group input:focus+i {
+    color: var(--primary-color);
+}
+
+.form-disclaimer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* Results - Step 3 */
+.result-content {
+    text-align: center;
+}
+
+.result-header {
+    margin-bottom: 32px;
+}
+
+.result-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.result-scenario {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-color);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.result-card-item {
+    background: var(--bg-color);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.result-card-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+}
+
+.result-card-item.highlight {
+    background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border-color: var(--primary-color);
+}
+
+.result-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 208, 132, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px auto;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.result-card-item.highlight .result-icon {
+    background: var(--primary-color);
+    color: #000;
+}
+
+.result-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.result-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.result-card-item.highlight .result-value {
+    color: var(--primary-color);
+}
+
+/* CTA Box */
+.result-cta-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 208, 132, 0.2);
+    margin-bottom: 32px;
+    text-align: left;
+}
+
+.cta-icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    background: var(--primary-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 1.5rem;
+}
+
+.cta-text h4 {
+    font-size: 1.125rem;
+    margin-bottom: 4px;
+}
+
+.cta-text p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.result-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.result-actions .btn {
+    flex: 1;
+    max-width: 200px;
+}
+
+/* Calculator Responsive */
+@media (max-width: 768px) {
+    .calculator-card {
+        padding: 24px;
+        margin: 0 16px;
+    }
+
+    .step-line {
+        width: 30px;
+    }
+
+    .step-dot {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+    }
+
+    .preview-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .result-cta-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .result-actions .btn {
+        max-width: 100%;
+    }
+}
+
+/* ========================================
+   PRICING SECTION
+   ======================================== */
+.pricing-section {
+    padding: 100px 0;
+    background: var(--bg-color);
+}
+
+.pricing-badge {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: var(--accent-color);
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 900px;
+    margin: 0 auto 48px auto;
+}
+
+.pricing-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 40px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pricing-card.featured {
+    background: linear-gradient(145deg, var(--surface-color) 0%, rgba(0, 208, 132, 0.05) 100%);
+    border-color: var(--primary-color);
+    transform: scale(1.02);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.02) translateY(-5px);
+}
+
+.popular-tag {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: #000;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.pricing-header {
+    margin-bottom: 24px;
+}
+
+.pricing-badge-type {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.pricing-badge-type.featured {
+    background: rgba(0, 208, 132, 0.1);
+    color: var(--primary-color);
+}
+
+.pricing-header h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.pricing-value {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.pricing-value .currency {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.pricing-value .amount {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pricing-value .period {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.pricing-note {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 24px;
+}
+
+.pricing-note.savings {
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pricing-features {
+    list-style: none;
+    margin-bottom: 32px;
+}
+
+.pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-features li i {
+    color: var(--primary-color);
+    font-size: 0.875rem;
+}
+
+.pricing-features li i.fa-star {
+    color: #fbbf24;
+}
+
+.btn-pricing {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1rem;
+}
+
+.pricing-info {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--surface-color);
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.info-card>i {
+    color: var(--accent-color);
+    font-size: 1.25rem;
+    margin-top: 2px;
+}
+
+.info-card strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.info-card p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Pricing Responsive */
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .pricing-card.featured {
+        transform: none;
+        order: -1;
+    }
+
+    .pricing-card.featured:hover {
+        transform: translateY(-5px);
+    }
+
+    .pricing-card {
+        padding: 32px 24px;
+    }
+
+    .pricing-value .amount {
+        font-size: 2.75rem;
+    }
+}
+
+/* ========================================
+   CONTACT SECTION
+   ======================================== */
+.contact-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, var(--bg-color) 0%, var(--surface-color) 100%);
+}
+
+.contact-badge {
+    background: rgba(37, 211, 102, 0.1);
+    border-color: rgba(37, 211, 102, 0.3);
+    color: #25D366;
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.contact-info h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.contact-info>p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: 40px;
+}
+
+.contact-benefits {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.benefit-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: rgba(0, 208, 132, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.contact-benefits li strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.contact-benefits li span {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Contact Form */
+.contact-form {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.contact-form h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form .form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.contact-form .form-group input,
+.contact-form .form-group select {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-group input:focus,
+.contact-form .form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.1);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 18px 32px;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.contact-form .form-disclaimer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+/* Contact Responsive */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .contact-info h2 {
+        font-size: 2rem;
+    }
+
+    .contact-form {
+        padding: 32px 24px;
+    }
 }

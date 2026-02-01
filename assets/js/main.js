@@ -81,4 +81,243 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.toggle('active');
         });
     });
+
+    // ========================================
+    // CALCULATOR LOGIC
+    // ========================================
+    const COSTS = {
+        marketing: 0.37,
+        utility: 0.08
+    };
+
+    const CONVERSION_RATES = {
+        pessimista: 0.01,
+        realista: 0.03,
+        otimista: 0.05
+    };
+
+    const SCENARIO_LABELS = {
+        pessimista: 'Cenário Pessimista (1%)',
+        realista: 'Cenário Realista (3%)',
+        otimista: 'Cenário Otimista (5%)'
+    };
+
+    // Store calculation data
+    let calcData = {
+        contacts: 0,
+        type: 'marketing',
+        scenario: 'realista',
+        cost: 0,
+        conversions: 0,
+        cpl: 0
+    };
+
+    // Elements
+    const btnCalculate = document.getElementById('btn-calculate');
+    const btnReset = document.getElementById('btn-reset');
+    const leadForm = document.getElementById('lead-form');
+
+    // Format currency
+    function formatCurrency(value) {
+        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    // Format number
+    function formatNumber(value) {
+        return value.toLocaleString('pt-BR');
+    }
+
+    // Show step
+    function showStep(stepNumber) {
+        document.querySelectorAll('.calc-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        document.getElementById(`calc-step-${stepNumber}`).classList.add('active');
+    }
+
+    // Calculate results
+    function calculate() {
+        const contacts = parseInt(document.getElementById('calc-contacts').value) || 0;
+        const type = document.getElementById('calc-type').value;
+        const scenario = document.getElementById('calc-scenario').value;
+
+        if (contacts <= 0) {
+            alert('Por favor, insira a quantidade de contatos');
+            return false;
+        }
+
+        const costPerMsg = COSTS[type];
+        const conversionRate = CONVERSION_RATES[scenario];
+
+        calcData = {
+            contacts: contacts,
+            type: type,
+            scenario: scenario,
+            cost: contacts * costPerMsg,
+            conversions: Math.round(contacts * conversionRate),
+            cpl: 0
+        };
+
+        // Calculate CPL (avoid division by zero)
+        if (calcData.conversions > 0) {
+            calcData.cpl = calcData.cost / calcData.conversions;
+        }
+
+        // Update preview
+        document.getElementById('preview-contacts').textContent = formatNumber(contacts);
+
+        return true;
+    }
+
+    // Show results
+    function showResults() {
+        document.getElementById('result-contacts').textContent = formatNumber(calcData.contacts);
+        document.getElementById('result-cost').textContent = formatCurrency(calcData.cost);
+        document.getElementById('result-conversions').textContent = formatNumber(calcData.conversions);
+        document.getElementById('result-cpl').textContent = calcData.conversions > 0
+            ? formatCurrency(calcData.cpl)
+            : 'N/A';
+        document.getElementById('result-scenario-label').textContent = SCENARIO_LABELS[calcData.scenario];
+
+        showStep(3);
+    }
+
+    // Reset calculator
+    function resetCalculator() {
+        document.getElementById('calc-contacts').value = '';
+        document.getElementById('calc-type').value = 'marketing';
+        document.getElementById('calc-scenario').value = 'realista';
+        document.getElementById('lead-name').value = '';
+        document.getElementById('lead-email').value = '';
+        document.getElementById('lead-phone').value = '';
+        showStep(1);
+    }
+
+    // Event Listeners
+    if (btnCalculate) {
+        btnCalculate.addEventListener('click', () => {
+            if (calculate()) {
+                showStep(2);
+            }
+        });
+    }
+
+    if (btnReset) {
+        btnReset.addEventListener('click', resetCalculator);
+    }
+
+    if (leadForm) {
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('lead-name').value;
+            const email = document.getElementById('lead-email').value;
+            const phone = document.getElementById('lead-phone').value;
+
+            // Send to webhook (configure your GHL webhook URL here)
+            sendToWebhook({
+                source: 'calculadora',
+                name,
+                email,
+                phone,
+                ...calcData
+            });
+
+            // Show results
+            showResults();
+        });
+    }
+
+    // ========================================
+    // CONTACT FORM LOGIC
+    // ========================================
+    const contactForm = document.getElementById('contact-form');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const phone = document.getElementById('contact-phone').value;
+            const interest = document.getElementById('contact-interest').value;
+
+            const submitBtn = contactForm.querySelector('.btn-submit');
+            const originalText = submitBtn.innerHTML;
+
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+
+            // Send to webhook
+            sendToWebhook({
+                source: 'contato',
+                name,
+                email,
+                phone,
+                interest
+            }).then(() => {
+                // Show success state
+                submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Enviado com Sucesso!';
+                submitBtn.style.background = '#22c55e';
+
+                // Reset form after delay
+                setTimeout(() => {
+                    contactForm.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }).catch(() => {
+                // Show error state
+                submitBtn.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Erro. Tente novamente.';
+                submitBtn.style.background = '#ef4444';
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            });
+        });
+    }
+
+    // ========================================
+    // WEBHOOK HELPER
+    // ========================================
+    async function sendToWebhook(data) {
+        // TODO: Replace with your GHL webhook URL
+        const WEBHOOK_URL = 'YOUR_GHL_WEBHOOK_URL_HERE';
+
+        // Add timestamp
+        data.timestamp = new Date().toISOString();
+        data.page_url = window.location.href;
+
+        console.log('Sending to webhook:', data);
+
+        // If webhook URL is not configured, just log and return
+        if (WEBHOOK_URL === 'YOUR_GHL_WEBHOOK_URL_HERE') {
+            console.warn('Webhook URL not configured. Data:', data);
+            return Promise.resolve();
+        }
+
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error('Webhook request failed');
+            }
+
+            return response;
+        } catch (error) {
+            console.error('Webhook error:', error);
+            throw error;
+        }
+    }
 });

@@ -33,10 +33,10 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#solucoes">Soluções</a></li>
-                    <li><a href="#beneficios">Benefícios</a></li>
-                    <li><a href="#integracoes">Integrações</a></li>
-                    <li><a href="#contato" class="btn btn-primary btn-mobile-highlight"
-                            style="padding: 8px 24px;">Começar Agora</a></li>
+                    <li><a href="#planos">Planos</a></li>
+                    <li><a href="#calculadora">Simulador</a></li>
+                    <li><a href="#contato" class="btn btn-primary btn-mobile-highlight" style="padding: 8px 24px;">Falar
+                            Conosco</a></li>
                 </ul>
             </nav>
         </div>
@@ -149,17 +149,360 @@
             </div>
         </section>
 
-        <!-- CTA -->
-        <section id="contato" style="padding: 100px 0; text-align: center;">
-            <div class="container"
-                style="background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%); padding: 60px; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                <h2 style="font-size: 3rem; margin-bottom: 24px; font-weight: 700;">Pronto para transformar seu negócio?
-                </h2>
-                <p
-                    style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                    Junte-se a milhares de empresas que usam a tecnologia Tudo1 para vender mais.
+        <!-- Calculator Section -->
+        <section id="calculadora" class="calculator-section">
+            <div class="container">
+                <span class="badge calculator-badge">
+                    <i class="fa-solid fa-calculator"></i> Simulador Gratuito
+                </span>
+                <h2 class="section-title">Simule sua Campanha de Disparos</h2>
+                <p class="section-subtitle">Descubra o custo real e o potencial de retorno antes de começar</p>
+
+                <div class="calculator-card">
+                    <!-- Step 1: Calculator Inputs -->
+                    <div class="calc-step active" id="calc-step-1">
+                        <div class="calc-header">
+                            <div class="calc-step-indicator">
+                                <span class="step-dot active"></span>
+                                <span class="step-line"></span>
+                                <span class="step-dot"></span>
+                                <span class="step-line"></span>
+                                <span class="step-dot"></span>
+                            </div>
+                            <p class="calc-step-label">Passo 1 de 3: Configure sua campanha</p>
+                        </div>
+
+                        <div class="calc-inputs">
+                            <div class="calc-input-group">
+                                <label for="calc-contacts">
+                                    <i class="fa-solid fa-users"></i>
+                                    Quantos contatos tem na sua lista?
+                                </label>
+                                <input type="number" id="calc-contacts" placeholder="Ex: 5000" min="1">
+                                <span class="input-hint">Quantidade de pessoas que receberão a mensagem</span>
+                            </div>
+
+                            <div class="calc-input-group">
+                                <label for="calc-type">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    Tipo de mensagem
+                                </label>
+                                <select id="calc-type">
+                                    <option value="marketing">Marketing (promoções, ofertas, novidades)</option>
+                                    <option value="utility">Utility (lembretes, confirmações, status)</option>
+                                </select>
+                                <span class="input-hint">Marketing: R$ 0,37/msg | Utility: R$ 0,08/msg</span>
+                            </div>
+
+                            <div class="calc-input-group">
+                                <label for="calc-scenario">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    Cenário de conversão esperado
+                                </label>
+                                <select id="calc-scenario">
+                                    <option value="pessimista">🔴 Pessimista (1% de conversão)</option>
+                                    <option value="realista" selected>🟡 Realista (3% de conversão)</option>
+                                    <option value="otimista">🟢 Otimista (5% de conversão)</option>
+                                </select>
+                                <span class="input-hint">Baseado em médias do mercado de WhatsApp Marketing</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-calc" id="btn-calculate">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            Calcular Resultado
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Lead Capture -->
+                    <div class="calc-step" id="calc-step-2">
+                        <div class="calc-header">
+                            <div class="calc-step-indicator">
+                                <span class="step-dot completed"><i class="fa-solid fa-check"></i></span>
+                                <span class="step-line completed"></span>
+                                <span class="step-dot active"></span>
+                                <span class="step-line"></span>
+                                <span class="step-dot"></span>
+                            </div>
+                            <p class="calc-step-label">Passo 2 de 3: Receba o resultado detalhado</p>
+                        </div>
+
+                        <div class="lead-capture-content">
+                            <div class="lead-preview">
+                                <h3>Seu resultado está pronto! 🎉</h3>
+                                <p>Preencha seus dados para ver a simulação completa e receber dicas personalizadas de
+                                    um especialista.</p>
+
+                                <div class="preview-metrics">
+                                    <div class="preview-item">
+                                        <span class="preview-label">Contatos</span>
+                                        <span class="preview-value" id="preview-contacts">5.000</span>
+                                    </div>
+                                    <div class="preview-item blur">
+                                        <span class="preview-label">Custo Estimado</span>
+                                        <span class="preview-value">R$ ???</span>
+                                    </div>
+                                    <div class="preview-item blur">
+                                        <span class="preview-label">Conversões</span>
+                                        <span class="preview-value">???</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="lead-form" class="lead-form">
+                                <div class="form-group">
+                                    <input type="text" id="lead-name" placeholder="Seu nome completo" required>
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" id="lead-email" placeholder="Seu melhor e-mail" required>
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" id="lead-phone" placeholder="WhatsApp (com DDD)" required>
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-calc">
+                                    <i class="fa-solid fa-unlock"></i>
+                                    Ver Meu Resultado
+                                </button>
+                                <p class="form-disclaimer">
+                                    <i class="fa-solid fa-lock"></i>
+                                    Seus dados estão seguros. Não enviamos spam.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Results -->
+                    <div class="calc-step" id="calc-step-3">
+                        <div class="calc-header">
+                            <div class="calc-step-indicator">
+                                <span class="step-dot completed"><i class="fa-solid fa-check"></i></span>
+                                <span class="step-line completed"></span>
+                                <span class="step-dot completed"><i class="fa-solid fa-check"></i></span>
+                                <span class="step-line completed"></span>
+                                <span class="step-dot active"><i class="fa-solid fa-check"></i></span>
+                            </div>
+                            <p class="calc-step-label">Resultado da sua simulação</p>
+                        </div>
+
+                        <div class="result-content">
+                            <div class="result-header">
+                                <h3>Projeção da sua Campanha</h3>
+                                <span class="result-scenario" id="result-scenario-label">Cenário Realista</span>
+                            </div>
+
+                            <div class="result-grid">
+                                <div class="result-card-item">
+                                    <div class="result-icon">
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                    <span class="result-label">Total de Contatos</span>
+                                    <span class="result-value" id="result-contacts">5.000</span>
+                                </div>
+
+                                <div class="result-card-item highlight">
+                                    <div class="result-icon">
+                                        <i class="fa-solid fa-dollar-sign"></i>
+                                    </div>
+                                    <span class="result-label">Investimento Total</span>
+                                    <span class="result-value" id="result-cost">R$ 1.850,00</span>
+                                </div>
+
+                                <div class="result-card-item">
+                                    <div class="result-icon">
+                                        <i class="fa-solid fa-bullseye"></i>
+                                    </div>
+                                    <span class="result-label">Conversões Estimadas</span>
+                                    <span class="result-value" id="result-conversions">150</span>
+                                </div>
+
+                                <div class="result-card-item">
+                                    <div class="result-icon">
+                                        <i class="fa-solid fa-tag"></i>
+                                    </div>
+                                    <span class="result-label">Custo por Lead</span>
+                                    <span class="result-value" id="result-cpl">R$ 12,33</span>
+                                </div>
+                            </div>
+
+                            <div class="result-cta-box">
+                                <div class="cta-icon">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <div class="cta-text">
+                                    <h4>Um especialista entrará em contato!</h4>
+                                    <p>Em breve você receberá uma mensagem no WhatsApp para tirar dúvidas e conhecer a
+                                        plataforma.</p>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <button class="btn btn-outline" id="btn-reset">
+                                    <i class="fa-solid fa-rotate"></i>
+                                    Nova Simulação
+                                </button>
+                                <a href="#planos" class="btn btn-primary">
+                                    <i class="fa-solid fa-rocket"></i>
+                                    Ver Planos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="planos" class="pricing-section">
+            <div class="container">
+                <span class="badge pricing-badge">
+                    <i class="fa-solid fa-tags"></i> Transparência Total
+                </span>
+                <h2 class="section-title">Planos Simples e Sem Surpresas</h2>
+                <p class="section-subtitle">Pague apenas pelo que usar. Sem taxas escondidas, sem limite de crescimento.
                 </p>
-                <a href="#" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.25rem;">Começar Agora</a>
+
+                <div class="pricing-grid">
+                    <!-- Mensal -->
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <span class="pricing-badge-type">Flexível</span>
+                            <h3>Mensal</h3>
+                        </div>
+                        <div class="pricing-value">
+                            <span class="currency">R$</span>
+                            <span class="amount">557</span>
+                            <span class="period">/mês</span>
+                        </div>
+                        <p class="pricing-note">+ custos variáveis de uso</p>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-check"></i> 1 Número WhatsApp API incluso</li>
+                            <li><i class="fa-solid fa-check"></i> Usuários ilimitados</li>
+                            <li><i class="fa-solid fa-check"></i> Contatos ilimitados</li>
+                            <li><i class="fa-solid fa-check"></i> Automações ilimitadas</li>
+                            <li><i class="fa-solid fa-check"></i> Funis de vendas ilimitados</li>
+                            <li><i class="fa-solid fa-check"></i> CRM Completo</li>
+                            <li><i class="fa-solid fa-check"></i> Tracking de Campanhas</li>
+                        </ul>
+                        <a href="#contato" class="btn btn-outline btn-pricing">Começar Agora</a>
+                    </div>
+
+                    <!-- Anual (Destaque) -->
+                    <div class="pricing-card featured">
+                        <div class="popular-tag">
+                            <i class="fa-solid fa-fire"></i> Mais Popular
+                        </div>
+                        <div class="pricing-header">
+                            <span class="pricing-badge-type featured">Economia</span>
+                            <h3>Anual</h3>
+                        </div>
+                        <div class="pricing-value">
+                            <span class="currency">R$</span>
+                            <span class="amount">5.570</span>
+                            <span class="period">/ano</span>
+                        </div>
+                        <p class="pricing-note savings">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                            Economize 2 meses! + custos variáveis
+                        </p>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-check"></i> Tudo do plano mensal</li>
+                            <li><i class="fa-solid fa-star"></i> 2 meses grátis</li>
+                            <li><i class="fa-solid fa-star"></i> Prioridade no suporte</li>
+                            <li><i class="fa-solid fa-star"></i> Onboarding dedicado</li>
+                            <li><i class="fa-solid fa-star"></i> Consultoria de setup</li>
+                        </ul>
+                        <a href="#contato" class="btn btn-primary btn-pricing">
+                            <i class="fa-solid fa-rocket"></i> Escolher Anual
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pricing-info">
+                    <div class="info-card">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <div>
+                            <strong>Custos Variáveis</strong>
+                            <p>Mensagens WhatsApp (Marketing R$ 0,37/msg | Utility R$ 0,08/msg), E-mails e uso de IA.
+                                Cobrados conforme consumo real.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contato" class="contact-section">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <span class="badge contact-badge">
+                            <i class="fa-brands fa-whatsapp"></i> Fale Conosco
+                        </span>
+                        <h2>Pronto para transformar seu negócio?</h2>
+                        <p>Preencha o formulário e nossa equipe entrará em contato pelo WhatsApp em até 5 minutos.</p>
+
+                        <ul class="contact-benefits">
+                            <li>
+                                <div class="benefit-icon"><i class="fa-solid fa-bolt"></i></div>
+                                <div>
+                                    <strong>Resposta Rápida</strong>
+                                    <span>Atendimento em até 5 minutos</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="benefit-icon"><i class="fa-solid fa-user-tie"></i></div>
+                                <div>
+                                    <strong>Consultor Dedicado</strong>
+                                    <span>Especialista para tirar dúvidas</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="benefit-icon"><i class="fa-solid fa-gift"></i></div>
+                                <div>
+                                    <strong>Demo Gratuita</strong>
+                                    <span>Conheça a plataforma sem compromisso</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <form id="contact-form" class="contact-form">
+                        <h3>Solicite uma demonstração</h3>
+                        <div class="form-group">
+                            <label for="contact-name">Nome completo</label>
+                            <input type="text" id="contact-name" placeholder="Como podemos te chamar?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">E-mail</label>
+                            <input type="email" id="contact-email" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-phone">WhatsApp</label>
+                            <input type="tel" id="contact-phone" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-interest">O que você procura?</label>
+                            <select id="contact-interest" required>
+                                <option value="">Selecione uma opção</option>
+                                <option value="disparos">Disparos em Massa</option>
+                                <option value="crm">CRM e Funis de Vendas</option>
+                                <option value="ia">Atendimento com IA</option>
+                                <option value="completo">Solução Completa</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            Quero ser Atendido
+                        </button>
+                        <p class="form-disclaimer">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Seus dados estão protegidos e não serão compartilhados.
+                        </p>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -242,10 +585,37 @@
 
     <footer>
         <div class="container">
-            <div class="logo">
-                <img src="assets/images/logo-final.png" alt="Tudo1 Logo">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="assets/images/logo-final.png" alt="Tudo1 Logo">
+                    </div>
+                    <p>A solução completa para vendas e marketing no WhatsApp.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#solucoes">Soluções</a></li>
+                        <li><a href="#planos">Planos</a></li>
+                        <li><a href="#calculadora">Simulador</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><a href="#contato">Fale Conosco</a></li>
+                        <li><a href="mailto:contato@tudo1.com.br">contato@tudo1.com.br</a></li>
+                    </ul>
+                </div>
             </div>
-            <p>&copy; 2024 Tudo1. Todos os direitos reservados.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tudo1. Todos os direitos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
