@@ -273,15 +273,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mark lead as captured
             leadCaptured = true;
 
-            // Send to webhook with lead data + simulation data
-            sendToWebhook({
-                source: 'calculadora',
-                ...leadData,
-                ...calcData
-            });
-
-            // Show results
-            showResults();
+            // If interest is scheduling, just open modal (GHL calendar captures the data)
+            if (interest === 'agendar') {
+                showResults();
+                setTimeout(() => {
+                    openModalFunc();
+                }, 300);
+            } else {
+                // Send to webhook only for non-scheduling interests
+                sendToWebhook({
+                    source: 'calculadora',
+                    ...leadData,
+                    ...calcData
+                });
+                showResults();
+            }
         });
     }
 
@@ -432,39 +438,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     submitBtn.disabled = false;
                 }, 3000);
             });
-        });
-    }
-
-    // Also update lead-form to support auto-scheduling
-    if (leadForm) {
-        leadForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById('lead-name').value;
-            const email = document.getElementById('lead-email').value;
-            const phone = document.getElementById('lead-phone').value;
-            const interest = document.getElementById('lead-interest').value;
-
-            // Save lead data
-            leadData = { name, email, phone, interest };
-            leadCaptured = true;
-
-            // Send to webhook
-            sendToWebhook({
-                source: 'calculadora',
-                ...leadData,
-                ...calcData
-            });
-
-            // If interest is scheduling, open modal
-            if (interest === 'agendar') {
-                setTimeout(() => {
-                    openModalFunc();
-                }, 500);
-            }
-
-            // Show results
-            showResults();
         });
     }
 
