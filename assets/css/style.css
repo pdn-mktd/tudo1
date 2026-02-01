@@ -26,6 +26,12 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+section[id] {
+    scroll-margin-top: 100px;
+    /* Header offset */
 }
 
 * {
@@ -52,11 +58,26 @@ body {
     }
 
     .hero {
-        padding: 140px 0 60px 0;
+        padding: 110px 0 50px 0;
+        /* Reduced padding */
     }
 
     .hero h1 {
-        font-size: 2.75rem;
+        font-size: 2.2rem;
+        /* Smaller font to fit screen */
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        /* Stack buttons */
+        width: 100%;
+        gap: 16px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        /* Full width buttons */
+        justify-content: center;
     }
 
     .hero p {
