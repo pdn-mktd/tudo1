@@ -1982,3 +1982,62 @@ footer {
     background: #fff;
     /* Calendars are usually light mode */
 }
+
+/* ========================================
+   MOBILE FIXES (FINAL)
+   ======================================== */
+@media (max-width: 768px) {
+
+    /* 1. Logo Sizing */
+    .logo img {
+        height: 48px !important;
+        width: auto !important;
+        max-width: 180px;
+    }
+
+    /* 2. Unlimited Text Fit */
+    .unlimited-value {
+        font-size: 1.75rem !important;
+        /* Reduced to fit 'Ilimitado' */
+        letter-spacing: -0.5px;
+    }
+
+    /* 3. Pricing Order & Layout */
+    .pricing-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
+
+    /* Mensal First */
+    .pricing-card:nth-child(1) {
+        order: 1 !important;
+    }
+
+    /* Anual Second */
+    .pricing-card:nth-child(2) {
+        order: 2 !important;
+    }
+
+    /* 4. Integrations Wrap */
+    #integracoes>div {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 24px !important;
+        display: flex !important;
+    }
+
+    #integracoes i,
+    #integracoes svg {
+        margin: 5px;
+    }
+
+    /* 5. Demo Button Visibility */
+    #btn-demo {
+        border: 1px solid rgba(255, 255, 255, 0.6) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+        font-weight: 600;
+        margin-top: 12px;
+    }
+}
