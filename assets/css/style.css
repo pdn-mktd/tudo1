@@ -1234,8 +1234,42 @@ footer {
     transition: color 0.3s ease;
 }
 
-.form-group input:focus+i {
+.form-group input:focus+i,
+.form-group select:focus+i {
     color: var(--primary-color);
+}
+
+/* Select styling in form */
+.form-select-group select {
+    width: 100%;
+    padding: 16px 20px 16px 48px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form-select-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.1);
+}
+
+.form-select-group::after {
+    content: '▼';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    pointer-events: none;
 }
 
 .form-disclaimer {

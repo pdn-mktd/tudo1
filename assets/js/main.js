@@ -206,8 +206,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCalculate) {
         btnCalculate.addEventListener('click', () => {
             if (calculate()) {
-                // If lead was already captured, skip to results
+                // If lead was already captured, skip to results and send new simulation data
                 if (leadCaptured) {
+                    // Send new simulation with existing lead data
+                    sendToWebhook({
+                        source: 'calculadora_resimulacao',
+                        ...leadData,
+                        ...calcData
+                    });
                     showResults();
                 } else {
                     showStep(2);
@@ -220,6 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btnReset.addEventListener('click', resetCalculator);
     }
 
+    // Store lead data for reuse
+    let leadData = {};
+
     if (leadForm) {
         leadForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -227,16 +236,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('lead-name').value;
             const email = document.getElementById('lead-email').value;
             const phone = document.getElementById('lead-phone').value;
+            const interest = document.getElementById('lead-interest').value;
+
+            // Save lead data for future simulations
+            leadData = { name, email, phone, interest };
 
             // Mark lead as captured
             leadCaptured = true;
 
-            // Send to webhook (configure your GHL webhook URL here)
+            // Send to webhook with lead data + simulation data
             sendToWebhook({
                 source: 'calculadora',
-                name,
-                email,
-                phone,
+                ...leadData,
                 ...calcData
             });
 
