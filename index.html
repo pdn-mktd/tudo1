@@ -256,6 +256,18 @@
                                 </select>
                                 <span class="input-hint">Baseado em médias do mercado de WhatsApp Marketing</span>
                             </div>
+
+                            <div class="calc-input-group">
+                                <label for="calc-ticket">
+                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                    Ticket médio da sua venda
+                                </label>
+                                <div class="input-with-prefix">
+                                    <span class="input-prefix">R$</span>
+                                    <input type="number" id="calc-ticket" placeholder="500" min="1" value="500">
+                                </div>
+                                <span class="input-hint">Valor médio que cada cliente paga por compra</span>
+                            </div>
                         </div>
 
                         <button class="btn btn-primary btn-calc" id="btn-calculate">
@@ -352,7 +364,7 @@
                                     <span class="result-value" id="result-contacts">5.000</span>
                                 </div>
 
-                                <div class="result-card-item highlight">
+                                <div class="result-card-item">
                                     <div class="result-icon">
                                         <i class="fa-solid fa-dollar-sign"></i>
                                     </div>
@@ -368,12 +380,28 @@
                                     <span class="result-value" id="result-conversions">150</span>
                                 </div>
 
+                                <div class="result-card-item highlight-success">
+                                    <div class="result-icon">
+                                        <i class="fa-solid fa-sack-dollar"></i>
+                                    </div>
+                                    <span class="result-label">Faturamento Potencial</span>
+                                    <span class="result-value" id="result-revenue">R$ 75.000</span>
+                                </div>
+
                                 <div class="result-card-item">
                                     <div class="result-icon">
                                         <i class="fa-solid fa-tag"></i>
                                     </div>
                                     <span class="result-label">Custo por Lead</span>
                                     <span class="result-value" id="result-cpl">R$ 12,33</span>
+                                </div>
+
+                                <div class="result-card-item highlight-roi">
+                                    <div class="result-icon">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                    </div>
+                                    <span class="result-label">ROI Estimado</span>
+                                    <span class="result-value" id="result-roi">3.954%</span>
                                 </div>
                             </div>
 

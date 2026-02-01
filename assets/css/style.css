@@ -1085,6 +1085,59 @@ footer {
     margin-top: 6px;
 }
 
+/* Input with prefix (R$) */
+.input-with-prefix {
+    display: flex;
+    align-items: stretch;
+}
+
+.input-prefix {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.input-with-prefix input {
+    border-radius: 0 12px 12px 0;
+    flex: 1;
+}
+
+/* Result cards highlights */
+.result-card-item.highlight-success {
+    background: linear-gradient(145deg, rgba(0, 208, 132, 0.1) 0%, rgba(0, 208, 132, 0.05) 100%);
+    border-color: var(--primary-color);
+}
+
+.result-card-item.highlight-success .result-icon {
+    background: rgba(0, 208, 132, 0.2);
+    color: var(--primary-color);
+}
+
+.result-card-item.highlight-success .result-value {
+    color: var(--primary-color);
+}
+
+.result-card-item.highlight-roi {
+    background: linear-gradient(145deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-color: var(--accent-color);
+}
+
+.result-card-item.highlight-roi .result-icon {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--accent-color);
+}
+
+.result-card-item.highlight-roi .result-value {
+    color: var(--accent-color);
+}
+
 .btn-calc {
     width: 100%;
     padding: 18px 32px;

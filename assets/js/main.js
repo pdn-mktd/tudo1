@@ -146,22 +146,26 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
 
+        const ticket = parseInt(document.getElementById('calc-ticket').value) || 500;
         const costPerMsg = COSTS[type];
         const conversionRate = CONVERSION_RATES[scenario];
+
+        const totalCost = contacts * costPerMsg;
+        const conversions = Math.round(contacts * conversionRate);
+        const revenue = conversions * ticket;
+        const roi = totalCost > 0 ? ((revenue - totalCost) / totalCost) * 100 : 0;
 
         calcData = {
             contacts: contacts,
             type: type,
             scenario: scenario,
-            cost: contacts * costPerMsg,
-            conversions: Math.round(contacts * conversionRate),
-            cpl: 0
+            ticket: ticket,
+            cost: totalCost,
+            conversions: conversions,
+            revenue: revenue,
+            roi: roi,
+            cpl: conversions > 0 ? totalCost / conversions : 0
         };
-
-        // Calculate CPL (avoid division by zero)
-        if (calcData.conversions > 0) {
-            calcData.cpl = calcData.cost / calcData.conversions;
-        }
 
         // Update preview
         document.getElementById('preview-contacts').textContent = formatNumber(contacts);
@@ -174,8 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('result-contacts').textContent = formatNumber(calcData.contacts);
         document.getElementById('result-cost').textContent = formatCurrency(calcData.cost);
         document.getElementById('result-conversions').textContent = formatNumber(calcData.conversions);
+        document.getElementById('result-revenue').textContent = formatCurrency(calcData.revenue);
         document.getElementById('result-cpl').textContent = calcData.conversions > 0
             ? formatCurrency(calcData.cpl)
+            : 'N/A';
+        document.getElementById('result-roi').textContent = calcData.roi > 0
+            ? `${formatNumber(Math.round(calcData.roi))}%`
             : 'N/A';
         document.getElementById('result-scenario-label').textContent = SCENARIO_LABELS[calcData.scenario];
 
