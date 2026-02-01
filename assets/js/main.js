@@ -1,11 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Smooth scroll for anchor links
+    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const href = this.getAttribute('href');
+
+            // Ignore empty links or just '#'
+            if (href === '#' || href === '') return;
+
+            // For modal triggers or special buttons, strict checking
+            if (this.id === 'btn-demo') return; // Let the modal handler handle this
+
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
