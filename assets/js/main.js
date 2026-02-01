@@ -274,6 +274,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
+    // WHATSAPP CONTACT BUTTON (from calculator results)
+    // ========================================
+    const btnWhatsappContact = document.getElementById('btn-whatsapp-contact');
+    const WHATSAPP_NUMBER = '5569999999999'; // TODO: Replace with actual number
+
+    if (btnWhatsappContact) {
+        btnWhatsappContact.addEventListener('click', () => {
+            // Send contact request to webhook
+            sendToWebhook({
+                source: 'calculadora_contato',
+                ...leadData,
+                ...calcData,
+                action: 'whatsapp_click'
+            });
+
+            // Build WhatsApp message
+            const message = encodeURIComponent(
+                `Olá! Fiz uma simulação no site da Tudo1 e gostei do resultado.\n\n` +
+                `📊 Minha simulação:\n` +
+                `• Contatos: ${formatNumber(calcData.contacts)}\n` +
+                `• Investimento: ${formatCurrency(calcData.cost)}\n` +
+                `• Faturamento potencial: ${formatCurrency(calcData.revenue)}\n` +
+                `• ROI: ${formatNumber(Math.round(calcData.roi))}%\n\n` +
+                `Quero saber mais sobre a plataforma!`
+            );
+
+            // Open WhatsApp
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        });
+    }
+
+    // ========================================
     // CONTACT FORM LOGIC
     // ========================================
     const contactForm = document.getElementById('contact-form');
