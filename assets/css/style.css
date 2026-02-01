@@ -1873,8 +1873,8 @@ footer {
     border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 30px;
-    width: 90%;
-    max-width: 900px;
+    width: 95%;
+    max-width: 1000px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;

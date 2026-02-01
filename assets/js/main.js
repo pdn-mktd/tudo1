@@ -329,14 +329,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDemo = document.getElementById('btn-demo');
     const closeModal = document.getElementById('close-modal');
 
+    // Make it available globally/internally
+    function openModalFunc() {
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+    }
+
     // Open modal
     if (btnDemo) {
         btnDemo.addEventListener('click', (e) => {
             e.preventDefault();
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            }
+            openModalFunc();
         });
     }
 
@@ -401,6 +406,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Enviado com Sucesso!';
                 submitBtn.style.background = '#22c55e';
 
+                // IF INTEREST IS SCHEDULING, OPEN MODAL
+                if (interest === 'agendar') {
+                    setTimeout(() => {
+                        openModalFunc();
+                        // Optional: Reset button immediately if modal opens
+                    }, 1000);
+                }
+
                 // Reset form after delay
                 setTimeout(() => {
                     contactForm.reset();
@@ -419,6 +432,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     submitBtn.disabled = false;
                 }, 3000);
             });
+        });
+    }
+
+    // Also update lead-form to support auto-scheduling
+    if (leadForm) {
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('lead-name').value;
+            const email = document.getElementById('lead-email').value;
+            const phone = document.getElementById('lead-phone').value;
+            const interest = document.getElementById('lead-interest').value;
+
+            // Save lead data
+            leadData = { name, email, phone, interest };
+            leadCaptured = true;
+
+            // Send to webhook
+            sendToWebhook({
+                source: 'calculadora',
+                ...leadData,
+                ...calcData
+            });
+
+            // If interest is scheduling, open modal
+            if (interest === 'agendar') {
+                setTimeout(() => {
+                    openModalFunc();
+                }, 500);
+            }
+
+            // Show results
+            showResults();
         });
     }
 
