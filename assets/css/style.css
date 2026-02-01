@@ -198,6 +198,18 @@ ul {
     overflow: hidden;
 }
 
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    cursor: default;
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
 .btn-primary::after {
     content: '';
     position: absolute;

@@ -277,31 +277,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // WHATSAPP CONTACT BUTTON (from calculator results)
     // ========================================
     const btnWhatsappContact = document.getElementById('btn-whatsapp-contact');
-    const WHATSAPP_NUMBER = '5569999999999'; // TODO: Replace with actual number
 
     if (btnWhatsappContact) {
         btnWhatsappContact.addEventListener('click', () => {
+            // Disable button to prevent double clicks
+            btnWhatsappContact.disabled = true;
+            btnWhatsappContact.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+
             // Send contact request to webhook
             sendToWebhook({
                 source: 'calculadora_contato',
                 ...leadData,
                 ...calcData,
-                action: 'whatsapp_click'
+                action: 'solicitar_atendimento'
             });
 
-            // Build WhatsApp message
-            const message = encodeURIComponent(
-                `Olá! Fiz uma simulação no site da Tudo1 e gostei do resultado.\n\n` +
-                `📊 Minha simulação:\n` +
-                `• Contatos: ${formatNumber(calcData.contacts)}\n` +
-                `• Investimento: ${formatCurrency(calcData.cost)}\n` +
-                `• Faturamento potencial: ${formatCurrency(calcData.revenue)}\n` +
-                `• ROI: ${formatNumber(Math.round(calcData.roi))}%\n\n` +
-                `Quero saber mais sobre a plataforma!`
-            );
+            // Show success message
+            setTimeout(() => {
+                btnWhatsappContact.innerHTML = '<i class="fa-solid fa-check"></i> Solicitação Enviada!';
+                btnWhatsappContact.classList.remove('btn-primary');
+                btnWhatsappContact.classList.add('btn-success');
 
-            // Open WhatsApp
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+                // Update CTA box to show confirmation
+                const ctaTitle = document.getElementById('result-cta-title');
+                const ctaText = document.getElementById('result-cta-text');
+                const ctaIcon = document.getElementById('result-cta-icon');
+
+                ctaIcon.className = 'fa-brands fa-whatsapp';
+                ctaTitle.textContent = 'Já vamos te chamar! 📱';
+                ctaText.textContent = 'Aguarde, um especialista entrará em contato pelo WhatsApp em instantes.';
+            }, 800);
         });
     }
 
