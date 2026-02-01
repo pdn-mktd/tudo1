@@ -206,14 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCalculate) {
         btnCalculate.addEventListener('click', () => {
             if (calculate()) {
-                // If lead was already captured, skip to results and send new simulation data
+                // If lead was already captured, skip to results (no webhook - just for fun)
                 if (leadCaptured) {
-                    // Send new simulation with existing lead data
-                    sendToWebhook({
-                        source: 'calculadora_resimulacao',
-                        ...leadData,
-                        ...calcData
-                    });
                     showResults();
                 } else {
                     showStep(2);
