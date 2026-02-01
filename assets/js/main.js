@@ -295,20 +295,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // WEBHOOK HELPER
     // ========================================
     async function sendToWebhook(data) {
-        // TODO: Replace with your GHL webhook URL
-        const WEBHOOK_URL = 'YOUR_GHL_WEBHOOK_URL_HERE';
+        // GHL Webhook URL
+        const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/7yA19Mve2EvPTqurPPsv/webhook-trigger/528a1b66-84eb-4c3e-9011-6480a71ff211';
 
         // Add timestamp
         data.timestamp = new Date().toISOString();
         data.page_url = window.location.href;
 
         console.log('Sending to webhook:', data);
-
-        // If webhook URL is not configured, just log and return
-        if (WEBHOOK_URL === 'YOUR_GHL_WEBHOOK_URL_HERE') {
-            console.warn('Webhook URL not configured. Data:', data);
-            return Promise.resolve();
-        }
 
         try {
             const response = await fetch(WEBHOOK_URL, {
