@@ -182,14 +182,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showStep(3);
     }
 
-    // Reset calculator
+    // Track if lead was already captured
+    let leadCaptured = false;
+
+    // Reset calculator (for new simulation)
     function resetCalculator() {
         document.getElementById('calc-contacts').value = '';
         document.getElementById('calc-type').value = 'marketing';
         document.getElementById('calc-scenario').value = 'realista';
-        document.getElementById('lead-name').value = '';
-        document.getElementById('lead-email').value = '';
-        document.getElementById('lead-phone').value = '';
+        // Don't reset lead data - keep it for new simulations
         showStep(1);
     }
 
@@ -197,7 +198,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCalculate) {
         btnCalculate.addEventListener('click', () => {
             if (calculate()) {
-                showStep(2);
+                // If lead was already captured, skip to results
+                if (leadCaptured) {
+                    showResults();
+                } else {
+                    showStep(2);
+                }
             }
         });
     }
@@ -213,6 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('lead-name').value;
             const email = document.getElementById('lead-email').value;
             const phone = document.getElementById('lead-phone').value;
+
+            // Mark lead as captured
+            leadCaptured = true;
 
             // Send to webhook (configure your GHL webhook URL here)
             sendToWebhook({
