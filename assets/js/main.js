@@ -311,6 +311,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
+    // SCHEDULING MODAL LOGIC
+    // ========================================
+    const modal = document.getElementById('demo-modal');
+    const btnDemo = document.getElementById('btn-demo');
+    const closeModal = document.getElementById('close-modal');
+
+    // Open modal
+    if (btnDemo) {
+        btnDemo.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        });
+    }
+
+    // Close modal
+    function closeModalFunc() {
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener('click', closeModalFunc);
+    }
+
+    // Close on click outside
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalFunc();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModalFunc();
+            }
+        });
+    }
+
+    // ========================================
     // CONTACT FORM LOGIC
     // ========================================
     const contactForm = document.getElementById('contact-form');

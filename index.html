@@ -55,7 +55,7 @@
                     Oficial.</p>
                 <div class="hero-actions">
                     <a href="#contato" class="btn btn-primary">Falar com Consultor</a>
-                    <a href="#demo" class="btn btn-outline">Ver Demonstração</a>
+                    <a href="#demo" class="btn btn-outline" id="btn-demo">Ver Demonstração</a>
                 </div>
             </div>
         </section>
@@ -706,6 +706,23 @@
             </div>
         </div>
     </footer>
+
+    <!-- Scheduling Modal -->
+    <div id="demo-modal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" id="close-modal"><i class="fa-solid fa-times"></i></button>
+            <div class="modal-content">
+                <h3>Agende sua Demonstração</h3>
+                <p>Escolha o melhor horário para falar com nosso consultor especialista.</p>
+                <!-- Paste your GHL Calendar Embed Code Here -->
+                <div class="calendar-placeholder">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    <p>Carregando agenda...</p>
+                    <small>(Cole seu código de embed do GHL aqui)</small>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="assets/js/main.js"></script>
 </body>

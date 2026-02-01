@@ -1843,3 +1843,113 @@ footer {
         padding: 32px 24px;
     }
 }
+
+/* Scheduling Modal */
+.modal-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-box {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text-secondary);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.modal-content h3 {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+}
+
+.modal-content>p {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.calendar-placeholder {
+    width: 100%;
+    height: 600px;
+    background: var(--bg-color);
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: var(--text-secondary);
+}
+
+.calendar-placeholder i {
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+/* Iframe styling */
+.calendar-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    border: none;
+    border-radius: 12px;
+    background: #fff;
+    /* Calendars are usually light mode */
+}
