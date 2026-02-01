@@ -187,6 +187,29 @@ document.addEventListener('DOMContentLoaded', () => {
             : 'N/A';
         document.getElementById('result-scenario-label').textContent = SCENARIO_LABELS[calcData.scenario];
 
+        // Dynamic CTA based on ROI
+        const ctaTitle = document.getElementById('result-cta-title');
+        const ctaText = document.getElementById('result-cta-text');
+        const ctaIcon = document.getElementById('result-cta-icon');
+
+        if (calcData.roi > 500) {
+            ctaIcon.className = 'fa-solid fa-fire';
+            ctaTitle.textContent = 'Seu potencial é incrível! 🔥';
+            ctaText.textContent = `Com ${formatNumber(Math.round(calcData.roi))}% de ROI, suas vendas pelo WhatsApp podem decolar. Vamos escalar juntos?`;
+        } else if (calcData.roi > 100) {
+            ctaIcon.className = 'fa-solid fa-rocket';
+            ctaTitle.textContent = 'Ótimo potencial de vendas! 🚀';
+            ctaText.textContent = 'Os números mostram que você pode ter excelentes resultados. Que tal dar o próximo passo?';
+        } else if (calcData.roi > 0) {
+            ctaIcon.className = 'fa-solid fa-chart-line';
+            ctaTitle.textContent = 'Você tem potencial! 📈';
+            ctaText.textContent = 'Com a estratégia certa, esses números podem crescer ainda mais. Quer saber como?';
+        } else {
+            ctaIcon.className = 'fa-solid fa-lightbulb';
+            ctaTitle.textContent = 'Vamos ajustar sua estratégia? 💡';
+            ctaText.textContent = 'Ajuste o ticket médio ou cenário para ver resultados diferentes. Podemos ajudar a otimizar!';
+        }
+
         showStep(3);
     }
 
