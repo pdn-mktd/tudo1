@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tudo1.com.br/sitemap.xml
