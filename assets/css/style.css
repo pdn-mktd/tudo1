@@ -972,6 +972,8 @@ footer {
 .calculator-section {
     padding: 100px 0;
     background: linear-gradient(180deg, var(--surface-color) 0%, var(--bg-color) 100%);
+    position: relative;
+    z-index: 50;
 }
 
 .calculator-badge {
@@ -993,6 +995,7 @@ footer {
     padding: 48px;
     position: relative;
     overflow: hidden;
+    z-index: 51;
 }
 
 .calculator-card::before {
@@ -1117,7 +1120,8 @@ footer {
 .calc-input-group select {
     width: 100%;
     position: relative;
-    z-index: 10;
+    z-index: 55;
+    cursor: text;
     padding: 16px 20px;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
