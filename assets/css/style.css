@@ -1112,6 +1112,8 @@ footer {
 .calc-input-group input,
 .calc-input-group select {
     width: 100%;
+    position: relative;
+    z-index: 10;
     padding: 16px 20px;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
