@@ -1095,10 +1095,16 @@ footer {
     flex-direction: column;
     gap: 24px;
     margin-bottom: 32px;
+    position: relative;
+    z-index: 60;
+    pointer-events: auto;
 }
 
 .calc-input-group {
     text-align: left;
+    position: relative;
+    z-index: 61;
+    pointer-events: auto;
 }
 
 .calc-input-group label {
@@ -1120,8 +1126,9 @@ footer {
 .calc-input-group select {
     width: 100%;
     position: relative;
-    z-index: 55;
+    z-index: 65;
     cursor: text;
+    pointer-events: auto !important;
     padding: 16px 20px;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
