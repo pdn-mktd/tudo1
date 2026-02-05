@@ -1103,6 +1103,8 @@ footer {
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--text-primary);
+    position: relative;
+    z-index: 10;
 }
 
 .calc-input-group label i {
@@ -1146,6 +1148,8 @@ footer {
 .input-with-prefix {
     display: flex;
     align-items: stretch;
+    position: relative;
+    z-index: 10;
 }
 
 .input-prefix {
