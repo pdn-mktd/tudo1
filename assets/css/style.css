@@ -1297,6 +1297,10 @@ footer {
 /* Select styling in form */
 .form-select-group select {
     width: 100%;
+    position: relative;
+    /* Ensure stacking context */
+    z-index: 10;
+    /* Bring above decoration */
     padding: 16px 20px 16px 48px;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
@@ -1832,6 +1836,8 @@ footer {
 .contact-form .form-group input,
 .contact-form .form-group select {
     width: 100%;
+    position: relative;
+    z-index: 10;
     padding: 14px 18px;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
@@ -1901,6 +1907,8 @@ footer {
     justify-content: center;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
+    /* Ensure no blocking when hidden */
     transition: all 0.3s ease;
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
@@ -1909,6 +1917,8 @@ footer {
 .modal-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+    /* Re-enable pointer events */
 }
 
 .modal-box {
