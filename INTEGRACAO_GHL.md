@@ -76,7 +76,30 @@ Crie uma condicional baseada no campo `source` (Origem):
 
 ## 3. Campos Disponíveis (Payload JSON)
 
-Aqui está a lista de todos os dados que o site envia, para você criar seus Campos Personalizados se desejar:
+Aqui está um exemplo real do que o site envia (copie e cole isso se precisar testar manualmente no Postman ou similar):
+
+```json
+{
+  "source": "calculadora",
+  "name": "Nome do Lead",
+  "email": "lead@email.com",
+  "phone": "11999999999",
+  "interest": "crm",
+  "contacts": 10000,
+  "type": "marketing",
+  "scenario": "pessimista",
+  "ticket": 500,
+  "cost": 3700,
+  "conversions": 100,
+  "revenue": 50000,
+  "roi": 1251.35,
+  "cpl": 37,
+  "timestamp": "2026-02-05T03:13:13.424Z",
+  "page_url": "https://tudo1.com.br/"
+}
+```
+
+### Lista Detalhada de Campos:
 
 **Padrão (Todos os envios):**
 - `name` (Texto)
