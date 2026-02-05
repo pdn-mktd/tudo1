@@ -994,7 +994,6 @@ footer {
     border-radius: 24px;
     padding: 48px;
     position: relative;
-    overflow: hidden;
     z-index: 51;
 }
 
@@ -1006,6 +1005,8 @@ footer {
     right: 0;
     height: 4px;
     background: var(--gradient-text);
+    pointer-events: none;
+    z-index: -1;
 }
 
 /* Step Indicator */
