@@ -441,11 +441,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
-    // WEBHOOK HELPER
+    // TRACKING & WEBHOOK HELPER
     // ========================================
+    function getTrackingParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const trackingKeys = ['fbclid', 'gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        let params = {};
+        
+        // Try to get from URL or session storage
+        trackingKeys.forEach(key => {
+            if (urlParams.has(key)) {
+                params[key] = urlParams.get(key);
+                // Store in session storage to persist across reloads
+                sessionStorage.setItem('tracking_' + key, params[key]);
+            } else {
+                // Return from session storage if exists
+                const stored = sessionStorage.getItem('tracking_' + key);
+                if (stored) {
+                    params[key] = stored;
+                }
+            }
+        });
+        
+        return params;
+    }
+
     async function sendToWebhook(data) {
         // GHL Webhook URL
         const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/7yA19Mve2EvPTqurPPsv/webhook-trigger/528a1b66-84eb-4c3e-9011-6480a71ff211';
+
+        // Add tracking parameters
+        const trackingParams = getTrackingParams();
+        data = { ...data, ...trackingParams };
 
         // Add timestamp
         data.timestamp = new Date().toISOString();
